@@ -4,84 +4,284 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta @media >
-    <link rel="stylesheet" href="index.css">
     <title>Document</title>
     <style>
+        *,*::after,*::before {
+            box-sizing: border-box;
+        }
+        :root{
+            --cell-size:100px;
+            --mark-size: calc(var(--cell-size)*.8);
+        }
+        body{
+            margin: 0;
+            font-size: 3rem;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .field{
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            align-content: center;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+            grid-template-columns: repeat(7,auto); 
+        }
+
+        .cell.blue,
+        .cell.red{
+            cursor: not-allowed;
+        }
+        .cell.blue::before{
+            background-color: rgb(0, 0, 179);
+        }
+        .cell.blue::after{
+            background-color: rgb(62, 73, 230);
+        }
+        .field.blue .cell:not(.blue):not(.red):hover::before{
+            background-color: rgb(52, 51, 77);
+        }
+        .field.blue .cell:not(.blue):not(.red):hover{
+            background-color: rgb(60, 53, 255);
+        }
+        .field.blue .cell:not(.blue):not(.red):hover::after{
+            background-color: rgb(94, 102, 145);
+        }
+        .cell.blue{
+            background-color:rgb(23, 23, 255) ;
+        }
+        .cell.red{
+            background-color:rgb(23, 23, 255) ;
+        }
+        .cell.red::before{
+            background-color: rgb(255, 0, 0);
+        }
+        .cell.red::after{
+            background-color: rgb(230, 62, 62);
+        }
+        .field.red .cell:not(.blue):not(.red):hover::before{
+            background-color: rgb(224, 110, 110);
+        }
+        .field.red .cell:not(.blue):not(.red):hover{
+            background-color: rgb(32, 47, 253);
+        }
+        .field.red .cell:not(.blue):not(.red):hover::after{
+            background-color: rgb(143, 36, 36);
+        }
         
+        
+
+        .cell{
+            width: var(--cell-size);
+            height: var(--cell-size);
+            border:1px solid rgb(0, 0, 114);
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            background-color:rgb(255, 255, 255);
+        }
+        .cell::after{
+            content:"";
+            width: var(--mark-size);
+            height: var(--mark-size);
+            border-radius: 50%;  
+            position: absolute;
+            background-color: rgb(255, 255, 255);
+        }
+        .cell::before{
+            content: "";
+            width: var(--cell-size);
+            height: var(--cell-size);  
+            position: absolute;
+            background-color: rgb(11, 28, 253);
+            border:1px solid rgb(0, 0, 114);
+        }
+        
+        
+        .cell.blue::before,
+        .field.blue .cell:not(.blue):not(.red):hover::before{
+            content: "";
+            width: var(--mark-size);
+            height: var(--mark-size);
+            
+            position: absolute;
+            border-radius: 50%;
+        }
+        .cell.blue::after,
+        .field.blue .cell:not(.blue):not(.red):hover::after{
+            content: "";
+            width: calc(var(--mark-size)*.8);
+            height: calc(var(--mark-size)*.8);
+            
+            position: absolute;
+            border-radius: 50%;
+        }
+        .cell.red::before,
+        .field.red .cell:not(.blue):not(.red):hover::before{
+            content: "";
+            width: var(--mark-size);
+            height: var(--mark-size);
+            
+            position: absolute;
+            border-radius: 50%;
+        }
+        .cell.red::after,
+        .field.red .cell:not(.blue):not(.red):hover::after{
+            content: "";
+            width: calc(var(--mark-size)*.8);
+            height: calc(var(--mark-size)*.8);
+            
+            position: absolute;
+            border-radius: 50%;
+        }
+        .overlay{
+            display:none ;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            position:fixed;
+            background-color: rgba(0, 0, 0, 0.705);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .message{
+            display: flex;
+            content: "message";
+            color: white;
+        }
+        .button{
+            display: flex;
+            font-size: 3rem;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        .button:hover{
+            display: flex;
+            font-size: 3rem;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            background-color: black;
+            color: white;
+            border-color: yellow;
+        }
+       
 
     </style>
+    <script>
+        function hideaway(){      //Achtung Overlay display auf flex setzen
+        document.getElementById("overlay").style.display ="none";
+        }
+    </script>
 </head>
 <body>
-    <div class="Backgroundfinish">
     
-    <div class="flexText">
+        <div id="field"class="field blue">
+               <div class="cell" data-cell id="cell0"></div>
+               <div class="cell" data-cell id="cell1"></div>
+               <div class="cell" data-cell id="cell2"></div>
+               <div class="cell" data-cell id="cell3"></div>
+               <div class="cell" data-cell id="cell4"></div>
+               <div class="cell" data-cell id="cell5"></div>
+               <div class="cell" data-cell id="cell6"></div>
+               <div class="cell" data-cell id="cell7"></div>
+               <div class="cell" data-cell id="cell8"></div>
+               <div class="cell" data-cell id="cell9"></div>
+               <div class="cell" data-cell id="cell10"></div>
+               <div class="cell" data-cell id="cell11"></div>
+               <div class="cell" data-cell id="cell12"></div>
+               <div class="cell" data-cell id="cell13"></div>
+               <div class="cell" data-cell id="cell14"></div>
+               <div class="cell" data-cell id="cell15"></div>
+               <div class="cell" data-cell id="cell16"></div>
+               <div class="cell" data-cell id="cell17"></div>
+               <div class="cell" data-cell id="cell18"></div>
+               <div class="cell" data-cell id="cell19"></div>
+               <div class="cell" data-cell id="cell20"></div>
+               <div class="cell" data-cell id="cell21"></div>
+               <div class="cell" data-cell id="cell22"></div>
+               <div class="cell" data-cell id="cell23"></div>
+               <div class="cell" data-cell id="cell24"></div>
+               <div class="cell" data-cell id="cell25"></div>
+               <div class="cell" data-cell id="cell26"></div>
+               <div class="cell" data-cell id="cell27"></div>
+               <div class="cell" data-cell id="cell28"></div>
+               <div class="cell" data-cell id="cell29"></div>
+               <div class="cell" data-cell id="cell30"></div>
+               <div class="cell" data-cell id="cell31"></div>
+               <div class="cell" data-cell id="cell32"></div>
+               <div class="cell" data-cell id="cell33"></div>
+               <div class="cell" data-cell id="cell34"></div>
+               <div class="cell" data-cell id="cell35"></div>
+               <div class="cell" data-cell id="cell36"></div>
+               <div class="cell" data-cell id="cell37"></div>
+               <div class="cell" data-cell id="cell38"></div>
+               <div class="cell" data-cell id="cell39"></div>
+               <div class="cell" data-cell id="cell40"></div>
+               <div class="cell" data-cell id="cell41"></div>
+               
+        </div>
+    
+    
+    <div id="overlay"class="overlay">
+        <div class="message">Red Wins!</div>
+        <button class="button" onclick="hideaway()">
+            Restart
+        </button>
+    </div>
+    </div>
+    <script>
+        const RED_CLASS = "red";
+        const BLUE_CLASS = "blue";
+        const cellElements = document.querySelectorAll("[data-cell]");
+        const field = document.getElementById("field")
+        let circleTurn;
+        
 
-        </div>
-        <div class="posOrange">
-        <div class="Orange"></div>
-        <div class="Blatt1"></div>    
-        <div class="Blatt"></div>
-        </div>
-        <div class="Text">
-        
-        <h2>Über uns</h2>
-        <p>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        
-        </div>
-        
-    </div>
-    </div>
-    <div>
-        <div class="Line"></div>
-        <div class="img">
-        <img src="Bilder/dan-gold-4_jhDO54BYg-unsplash.jpg" alt="Essen Bild">
-        
-        </div>
-        
-    </div>
-    <div class="innerPicture">Sei ein Teil von Uns!</div>
-    <div class="Header">
-    <div class="toplink"> 
+        startGame();
+
+        function startGame(){
+            circleTurn = false
+            cellElements.forEach(cell => {
+                cell.addEventListener("click", handleClick, {once:true},)
+            })
+            setFieldHoverClass();
+        }
+
+        function handleClick(e) {
+           
+            const cell = e.target
+            const currentClass = circleTurn ? RED_CLASS : BLUE_CLASS
+            placeMark(cell, currentClass)
+            swapTurns();
+            setFieldHoverClass();
             
-            <div class="outside" onclick="ausfahren();return false" >
-                <div class="inside"></div>
-                <div class="inside"></div>
-            </div>
-                   
-            <div class="title">Future Food</div>    
-        <div class="link">
-            <a class="Box" href="">About us</a>
-            <a class="Box" href="">Kontakt</a>
-            <a class="Box" href="">Unterstützung</a>
-            <a class="Box" href="">Produkte</a> 
-        </div>
-    </div>
-    </div>
-    <div id="Einblendung-Background" onclick="einfahren()">
 
-    </div>
-    <div id="Einblendung">
-        <div class="outside1" onclick="einfahren();return false" >
-            <div class="inside1"></div>
-            <div class="inside1"></div>
-        </div>
-        <div class="Einblendung-Link">    
-       <a class="Einblendung-Box" href="">About us</a> 
-       <a class="Einblendung-Box" href="">Kontakt</a>
-       <a class="Einblendung-Box" href="">Unterstützung</a>
-       <a class="Einblendung-Box" href="">Produkte</a> 
-       </div>
-    </div>
-    
-    <script src="index.js">
-       
-      
+        }
+        function placeMark(cell, currentClass){
+            cell.classList.add(currentClass)
+            
+        }
+        function swapTurns(){
+            circleTurn = !circleTurn;
+        }
+        function setFieldHoverClass(){
+            field.classList.remove(RED_CLASS)
+            field.classList.remove(BLUE_CLASS)
+            if (circleTurn) {
+                field.classList.add(RED_CLASS)
+            }else if(!circleTurn){
+                field.classList.add(BLUE_CLASS)
+            }
+
+        }
+        
+        
+
     </script>
-</body>
-</html>
+    </body>
+    </html>
