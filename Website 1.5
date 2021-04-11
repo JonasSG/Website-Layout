@@ -4,284 +4,323 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta @media >
     <title>Document</title>
     <style>
-        *,*::after,*::before {
-            box-sizing: border-box;
-        }
-        :root{
-            --cell-size:100px;
-            --mark-size: calc(var(--cell-size)*.8);
-        }
         body{
-            margin: 0;
-            font-size: 3rem;
             font-family: Arial, Helvetica, sans-serif;
         }
-        .field{
-            width: 100vw;
-            height: 100vh;
-            display: grid;
-            align-content: center;
-            justify-content: center;
-            justify-items: center;
-            align-items: center;
-            grid-template-columns: repeat(7,auto); 
-        }
-
-        .cell.blue,
-        .cell.red{
-            cursor: not-allowed;
-        }
-        .cell.blue::before{
-            background-color: rgb(0, 0, 179);
-        }
-        .cell.blue::after{
-            background-color: rgb(62, 73, 230);
-        }
-        .field.blue .cell:not(.blue):not(.red):hover::before{
-            background-color: rgb(52, 51, 77);
-        }
-        .field.blue .cell:not(.blue):not(.red):hover{
-            background-color: rgb(60, 53, 255);
-        }
-        .field.blue .cell:not(.blue):not(.red):hover::after{
-            background-color: rgb(94, 102, 145);
-        }
-        .cell.blue{
-            background-color:rgb(23, 23, 255) ;
-        }
-        .cell.red{
-            background-color:rgb(23, 23, 255) ;
-        }
-        .cell.red::before{
-            background-color: rgb(255, 0, 0);
-        }
-        .cell.red::after{
-            background-color: rgb(230, 62, 62);
-        }
-        .field.red .cell:not(.blue):not(.red):hover::before{
-            background-color: rgb(224, 110, 110);
-        }
-        .field.red .cell:not(.blue):not(.red):hover{
-            background-color: rgb(32, 47, 253);
-        }
-        .field.red .cell:not(.blue):not(.red):hover::after{
-            background-color: rgb(143, 36, 36);
-        }
-        
-        
-
-        .cell{
-            width: var(--cell-size);
-            height: var(--cell-size);
-            border:1px solid rgb(0, 0, 114);
-            display:flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            cursor: pointer;
-            background-color:rgb(255, 255, 255);
-        }
-        .cell::after{
-            content:"";
-            width: var(--mark-size);
-            height: var(--mark-size);
-            border-radius: 50%;  
-            position: absolute;
-            background-color: rgb(255, 255, 255);
-        }
-        .cell::before{
-            content: "";
-            width: var(--cell-size);
-            height: var(--cell-size);  
-            position: absolute;
-            background-color: rgb(11, 28, 253);
-            border:1px solid rgb(0, 0, 114);
-        }
-        
-        
-        .cell.blue::before,
-        .field.blue .cell:not(.blue):not(.red):hover::before{
-            content: "";
-            width: var(--mark-size);
-            height: var(--mark-size);
-            
-            position: absolute;
-            border-radius: 50%;
-        }
-        .cell.blue::after,
-        .field.blue .cell:not(.blue):not(.red):hover::after{
-            content: "";
-            width: calc(var(--mark-size)*.8);
-            height: calc(var(--mark-size)*.8);
-            
-            position: absolute;
-            border-radius: 50%;
-        }
-        .cell.red::before,
-        .field.red .cell:not(.blue):not(.red):hover::before{
-            content: "";
-            width: var(--mark-size);
-            height: var(--mark-size);
-            
-            position: absolute;
-            border-radius: 50%;
-        }
-        .cell.red::after,
-        .field.red .cell:not(.blue):not(.red):hover::after{
-            content: "";
-            width: calc(var(--mark-size)*.8);
-            height: calc(var(--mark-size)*.8);
-            
-            position: absolute;
-            border-radius: 50%;
-        }
-        .overlay{
-            display:none ;
-            top:0;
-            bottom:0;
-            left:0;
-            right:0;
-            position:fixed;
-            background-color: rgba(0, 0, 0, 0.705);
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        .message{
-            display: flex;
-            content: "message";
-            color: white;
-        }
-        .button{
-            display: flex;
-            font-size: 3rem;
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
-        }
-        .button:hover{
-            display: flex;
-            font-size: 3rem;
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
-            background-color: black;
-            color: white;
-            border-color: yellow;
-        }
        
+        .outside{
+            position: fixed;
+            width: 25px;
+            height: 20px;
+            background-color: rgb(255, 255, 255);
+            top: 16px;
+            left: 20px;
+        }
+        .outside1{
+            position: fixed;
+            width: 25px;
+            height: 20px;
+            background-color: rgb(255, 255, 255);
+            margin-top:20px ;
+            margin-left: 20px;
+           
+        }
+        .inside{
+            width: 25px;
+            margin-top: 4px;
+            height: 4px;
+            background-color:rgb(114, 204, 134);
+        }
+        .inside1{
+            width: 25px;
+            margin-top: 4px;
+            height: 4px;
+            background-color:rgb(125, 204, 142);
+        }
+        .Header{
+            top: 0px;
+           position: fixed;
+           height: 4em;
+           width: 100%;
+           background-color: rgb(114, 204, 134);
+           margin: -8px;
+           min-width: 750px;
+           
+        }
+        .toplink{
+            margin:-8px;
+            display: flex;
+            justify-content: space-between ; 
+        }
+        .link{
+            position: relative;
+            display: flex;
+            margin-right: 32px;
+            margin-top: 20px;    
+        } 
+        @media (max-width: 900px) {   
+        .Box{
+            display: none;
+        }
+        }     
+        .Box{
+            
+            margin:8px;
+            margin-right: 24px;
+            font-size: 24px ;
+            font-family: Arial, Helvetica, sans-serif;
+            text-decoration: none;
+            color: white;    
+        }
+        
+        .title{
+            position: relative;
+            margin:8px;
+            left: 70px;
+            margin-top: 28px;
+            font-size: 24px ;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+           
+        }
+        .Text{ 
+            position: absolute;
+            text-align:justify;
+            width: 80%;
+            
+            margin: auto;
+            padding-bottom: 50px;
+            left: 10%;
+            color: rgba(0, 0, 0, 0.541);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .img{
+            top: 60px;
+            position: fixed;
+            margin:-8px;
+            width: 100%;           
+        }
+        .Line{
+            top: 260px;
+            position: fixed;
+            height: 64px;
+            width: 100%;
+            background-color: rgb(114, 204, 134);
+            margin: -8px;
+            min-width: 800px;
+        }
+        @media (max-width:700px){
+            .innerPicture{
+                display:none;
+            }
+        }
+        .innerPicture{
+            position: fixed;
+            color: rgb(255, 255, 255);
+            font-size: 50px;
+            width: 80%;
+            margin: auto;
+            top: 130px;
+            text-align: center;
+            left: 10%;
+            font-family: Arial, Helvetica, sans-serif;           
+        }
+        .Backgroundfinish{
+            position: absolute;
+            margin:-8px;
+            width: 100%;
+            height: 2000px;
+            background-color: rgb(224, 255, 231);
+        }
+        .posOrange{
+            position: relative;
+            margin-top: 400px;
+            margin-left: 50px;
+        }
+        .Orange{
+            position:absolute;
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            background-color: orange;
+            margin:-8px;
+            border-color: rgb(179, 116, 1);
+            border-style: solid;
+            display: none;
+        }
+        .Blatt{
+            position: absolute;
+            height: 40px;
+            width: 40px;
+            background-color: green;
+            border-top-left-radius: 80%;
+            border-bottom-right-radius: 80%;
+            margin: -8px;
+            left: 90px;
+            top: -30px;
+            border-style: solid;
+            border-color: rgb(0, 95, 8);
+            display: none;
+        }
+        .Blatt1{
+            display: none;
+            position: absolute;
+            height: 60px;
+            width: 60px;
+            background-color: green;
+            border-bottom-left-radius: 80%;
+            border-top-right-radius: 80%;
+            margin: -8px;
+            left: 40px;
+            top: -50px;
+            border-style: solid;
+            border-color: rgb(0, 95, 8);
+        }
+        .flexText{
+            display: flex;
+            justify-content: flex-start;
+            
+        }
+        #Einblendung{
+            height: 1000px;
+            width: 300px;
+            left:-300px;
+            position: fixed;
+            background-color: rgb(125, 204, 142);
+            border-right-style: solid;
+            border-right-color: rgb(224, 255, 231);
+            margin-left: -8px;
+            margin-top: -8px;
+        }
+        .Einblendung-Link{
+            margin-top: 60px;
+        }
+        .Einblendung-Box{
+            position: relative;
+            display: flex;
+            justify-content: left;
+            margin-left: 20px;
+            margin-top: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            
+        }
+        #Einblendung-Background{
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 200% ;
+            background-color: rgba(0, 0, 0, 0.404);
+            position:absolute
+
+        }
 
     </style>
-    <script>
-        function hideaway(){      //Achtung Overlay display auf flex setzen
-        document.getElementById("overlay").style.display ="none";
-        }
-    </script>
 </head>
 <body>
+    <div class="Backgroundfinish">
     
-        <div id="field"class="field blue">
-               <div class="cell" data-cell id="cell0"></div>
-               <div class="cell" data-cell id="cell1"></div>
-               <div class="cell" data-cell id="cell2"></div>
-               <div class="cell" data-cell id="cell3"></div>
-               <div class="cell" data-cell id="cell4"></div>
-               <div class="cell" data-cell id="cell5"></div>
-               <div class="cell" data-cell id="cell6"></div>
-               <div class="cell" data-cell id="cell7"></div>
-               <div class="cell" data-cell id="cell8"></div>
-               <div class="cell" data-cell id="cell9"></div>
-               <div class="cell" data-cell id="cell10"></div>
-               <div class="cell" data-cell id="cell11"></div>
-               <div class="cell" data-cell id="cell12"></div>
-               <div class="cell" data-cell id="cell13"></div>
-               <div class="cell" data-cell id="cell14"></div>
-               <div class="cell" data-cell id="cell15"></div>
-               <div class="cell" data-cell id="cell16"></div>
-               <div class="cell" data-cell id="cell17"></div>
-               <div class="cell" data-cell id="cell18"></div>
-               <div class="cell" data-cell id="cell19"></div>
-               <div class="cell" data-cell id="cell20"></div>
-               <div class="cell" data-cell id="cell21"></div>
-               <div class="cell" data-cell id="cell22"></div>
-               <div class="cell" data-cell id="cell23"></div>
-               <div class="cell" data-cell id="cell24"></div>
-               <div class="cell" data-cell id="cell25"></div>
-               <div class="cell" data-cell id="cell26"></div>
-               <div class="cell" data-cell id="cell27"></div>
-               <div class="cell" data-cell id="cell28"></div>
-               <div class="cell" data-cell id="cell29"></div>
-               <div class="cell" data-cell id="cell30"></div>
-               <div class="cell" data-cell id="cell31"></div>
-               <div class="cell" data-cell id="cell32"></div>
-               <div class="cell" data-cell id="cell33"></div>
-               <div class="cell" data-cell id="cell34"></div>
-               <div class="cell" data-cell id="cell35"></div>
-               <div class="cell" data-cell id="cell36"></div>
-               <div class="cell" data-cell id="cell37"></div>
-               <div class="cell" data-cell id="cell38"></div>
-               <div class="cell" data-cell id="cell39"></div>
-               <div class="cell" data-cell id="cell40"></div>
-               <div class="cell" data-cell id="cell41"></div>
-               
+    <div class="flexText">
+
         </div>
-    
-    
-    <div id="overlay"class="overlay">
-        <div class="message">Red Wins!</div>
-        <button class="button" onclick="hideaway()">
-            Restart
-        </button>
+        <div class="posOrange">
+        <div class="Orange"></div>
+        <div class="Blatt1"></div>    
+        <div class="Blatt"></div>
+        </div>
+        <div class="Text">
+        
+        <h2>Über uns</h2>
+        <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        </p>
+        
+        </div>
+        
     </div>
     </div>
+    <div>
+        <div class="Line"></div>
+        <div class="img">
+        <img src="Bilder/dan-gold-4_jhDO54BYg-unsplash.jpg" alt="Essen Bild">
+        
+        </div>
+        
+    </div>
+    <div class="innerPicture">Sei ein Teil von Uns!</div>
+    <div class="Header">
+    <div class="toplink"> 
+            
+            <div class="outside" onclick="ausfahren();return false" >
+                <div class="inside"></div>
+                <div class="inside"></div>
+            </div>
+                   
+            <div class="title">Future Food</div>    
+        <div class="link">
+            <a class="Box" href="">About us</a>
+            <a class="Box" href="">Kontakt</a>
+            <a class="Box" href="">Unterstützung</a>
+            <a class="Box" href="">Produkte</a> 
+        </div>
+    </div>
+    </div>
+    <div id="Einblendung-Background" onclick="einfahren()">
+
+    </div>
+    <div id="Einblendung">
+        <div class="outside1" onclick="einfahren();return false" >
+            <div class="inside1"></div>
+            <div class="inside1"></div>
+        </div>
+        <div class="Einblendung-Link">    
+       <a class="Einblendung-Box" href="">About us</a> 
+       <a class="Einblendung-Box" href="">Kontakt</a>
+       <a class="Einblendung-Box" href="">Unterstützung</a>
+       <a class="Einblendung-Box" href="">Produkte</a> 
+       </div>
+    </div>
+    
     <script>
-        const RED_CLASS = "red";
-        const BLUE_CLASS = "blue";
-        const cellElements = document.querySelectorAll("[data-cell]");
-        const field = document.getElementById("field")
-        let circleTurn;
-        
-
-        startGame();
-
-        function startGame(){
-            circleTurn = false
-            cellElements.forEach(cell => {
-                cell.addEventListener("click", handleClick, {once:true},)
-            })
-            setFieldHoverClass();
-        }
-
-        function handleClick(e) {
-           
-            const cell = e.target
-            const currentClass = circleTurn ? RED_CLASS : BLUE_CLASS
-            placeMark(cell, currentClass)
-            swapTurns();
-            setFieldHoverClass();
-            
-
-        }
-        function placeMark(cell, currentClass){
-            cell.classList.add(currentClass)
-            
-        }
-        function swapTurns(){
-            circleTurn = !circleTurn;
-        }
-        function setFieldHoverClass(){
-            field.classList.remove(RED_CLASS)
-            field.classList.remove(BLUE_CLASS)
-            if (circleTurn) {
-                field.classList.add(RED_CLASS)
-            }else if(!circleTurn){
-                field.classList.add(BLUE_CLASS)
+       function ausfahren() {
+           console.log("supi")
+        let x = document.getElementById("Einblendung");
+        let n = -300;
+        let time = setInterval(function () {
+            if (n >= 10) {
+                clearInterval(time)
+            } else {
+                console.log(n)
+                x.style.left = n + "px";
+                n += 5
             }
+        },0,5);
+    document.getElementById("Einblendung-Background").style.width = 100 +"%";
 
-        }
-        
-        
-
+       };
+       function einfahren() {
+           console.log("supi")
+        let x = document.getElementById("Einblendung");
+        let n = 0;
+        let time = setInterval(function () {
+            if (n <= -300) {
+                clearInterval(time)
+            } else {
+                console.log(n)
+                x.style.left = n + "px";
+                n -= 5
+            }
+        },0,5);
+        document.getElementById("Einblendung-Background").style.width = 0 +"%";
+       };
+      
     </script>
-    </body>
-    </html>
+</body>
+</html>
